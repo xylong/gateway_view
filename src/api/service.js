@@ -7,3 +7,11 @@ export function serviceList(query) {
     params: query
   })
 }
+
+export function serviceDelete(query) {
+    return request({
+      url: '/service/https',
+      method: 'delete',
+      params: query
+    })
+  }

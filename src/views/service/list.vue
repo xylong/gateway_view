@@ -89,7 +89,7 @@
 </template>
 
 <script>
-import { serviceList } from '@/api/service'
+import { serviceList, serviceDelete } from '@/api/service'
 import waves from '@/directive/waves' // waves directive
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 
@@ -153,13 +153,31 @@ export default {
       this.getList()
     },
     handleDelete(row, index) {
-      this.$notify({
-        title: 'Success',
-        message: 'Delete Successfully',
-        type: 'success',
-        duration: 2000
-      })
-      this.list.splice(index, 1)
+        this.$confirm('真的要删除吗?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+            serviceDelete({
+              id: row.id
+            }).then(response => {
+                this.$notify({
+                    title: 'Success',
+                    message: '删除成功',
+                    type: 'success',
+                    duration: 2000
+                })
+                this.getList()
+            })
+            
+        }).catch(() => {
+          this.$notify({
+                title: 'Success',
+                message: '删除取消',
+                type: 'info',
+                duration: 2000
+            })         
+        });
     },
   }
 }
