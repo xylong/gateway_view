@@ -16,6 +16,14 @@ export function getInfo(token) {
   })
 }
 
+export function changePwd(data) {
+  return request({
+    url: '/admin/change_pwd',
+    method: 'patch',
+    data
+  })
+}
+
 export function logout() {
   return request({
     url: '/admin_login/login',
